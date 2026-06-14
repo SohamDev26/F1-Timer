@@ -449,8 +449,8 @@ html, body {
 }
 
 /* Timer row */
-.timer-row { display: flex; gap: 16px; }
-.timer-row .timer-panel { flex: 1; }
+.timer-row { display: flex; gap: 12px; align-items: stretch; }
+.timer-row .timer-panel { flex: 0 0 65%; }
 .timer-panel {
   text-align: center;
   padding: 28px 20px;
@@ -867,12 +867,12 @@ html, body {
   .team-card { padding: 8px 4px; }
   .team-name { font-size: 7px; }
   .team-car { font-size: 14px; }
-  .tyre-grid { grid-template-columns: 1fr; gap: 8px; }
-  .tyre-card { padding: 8px 10px; display:flex; align-items:center; gap:10px; text-align:left; }
-  .tyre-circle { margin: 0; flex-shrink: 0; width: 32px; height: 32px; font-size: 13px; border-width: 2px; }
-  .tyre-label { font-size: 11px; margin-bottom: 2px; }
-  .tyre-times { font-size: 8px; margin-bottom: 1px; }
-  .tyre-desc { font-size: 9px; }
+  .tyre-grid { grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .tyre-card { padding: 8px 4px; display:flex; flex-direction:column; align-items:center; gap:4px; text-align:center; }
+  .tyre-circle { margin: 0; flex-shrink: 0; width: 30px; height: 30px; font-size: 12px; border-width: 2px; }
+  .tyre-label { font-size: 9px; margin-bottom: 0; letter-spacing: 1px; }
+  .tyre-times { font-size: 6.5px; margin-bottom: 0; line-height: 1.3; }
+  .tyre-desc { display: none; }
   .input-row { flex-direction: row; }
   .start-race-btn { font-size: 13px; padding: 16px; letter-spacing: 2px; }
   .btn-lights { display: none; }
@@ -916,8 +916,10 @@ html, body {
   .track-container { height: 220px; }
   .f1-car { width: 90px; height: 32px; transform-origin: 45px 16px; }
 
-  /* Pit board stays as small floating toggle on mobile */
-  .pit-board { top: 8px; right: 8px; padding: 6px 10px; min-width: 80px; }
+  /* Pit board sits at 35% beside timer */
+  .timer-row { gap: 8px; }
+  .timer-row .timer-panel { padding: 16px 8px; }
+  .pit-board { padding: 6px 8px; }
   .pit-board-title { font-size: 7px; cursor: pointer; }
   .pb-key { font-size: 7px; }
   .pb-val { font-size: 11px; }
@@ -971,7 +973,7 @@ html, body {
   .f1-car { width: 70px; height: 26px; transform-origin: 35px 13px; }
 
   .timer-display { font-size: clamp(40px, 18vw, 60px); }
-  .pit-board { padding: 5px 8px; min-width: 70px; }
+  .pit-board { padding: 4px 6px; }
   .pb-val { font-size: 10px; }
   .pb-key { font-size: 6px; }
 
@@ -1087,15 +1089,18 @@ html, body {
 
 /* Pit Board */
 .pit-board {
-  position: absolute;
-  top: 16px; right: 16px;
+  position: static;
   background: #0a0a0a;
   border: 2px solid #333;
   border-radius: 6px;
   padding: 10px 14px;
-  min-width: 110px;
+  min-width: 0;
+  flex: 0 0 35%;
   box-shadow: 0 4px 16px rgba(0,0,0,0.6), inset 0 0 20px rgba(0,0,0,0.3);
   z-index: 10;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .pit-board-title {
   font-family: var(--font-display);
@@ -1118,6 +1123,7 @@ html, body {
   transition: max-height 0.25s ease, opacity 0.2s ease;
   opacity: 1;
 }
+.pit-board.collapsed { flex: 0 0 auto; align-self: flex-start; }
 .pit-board.collapsed .pit-board-body {
   max-height: 0;
   opacity: 0;
